@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br>
+<h1> Check Date wise Analytics here</h1>
+<br><br>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><h3>{{ message }}</h3></li>
+    {% endfor %}
+</ul>
+{% endif %}
+<form method='POST' action="{% url 'date_wise_analytics' %}">
+    {% csrf_token %}
+    <label for="birthday">Start date :</label>
+    <input type="date" id="birthday" name="start_date">
+     <br><br>
+    <label for="birthday">End date :</label>
+    <input type="date" id="birthday" name="end_date">
+    <br><br>
+    <input type="submit" class="btn btn-success" value="Go">
+  </form>
+{% endblock %}

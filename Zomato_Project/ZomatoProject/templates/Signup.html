@@ -1,0 +1,50 @@
+{% extends 'base.html'%}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+SignupPage
+{% endblock %}
+
+<body class="vh-100 bg-image">
+  {% block content%}
+  <form method='POST' action="{% url 'signupdetails' %}">
+    {% csrf_token %}
+    <div class="card-body p-5">
+      <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+    </div>
+
+    <form>
+
+      <div class="card-body p-5">
+        {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>
+            <h3>{{ message }}</h3>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <center>
+          {{form|crispy}}
+        </center>
+
+
+        <br>
+        <br>
+
+        <div class="d-flex justify-content-center">
+          <input type="submit" value="Register" class="btn btn-success " />
+        </div>
+        <br>
+
+        <h4 class="text-center  mt-5 mb-0"><b>Already have an account?</b> <a href="{% url 'login_page'%}"
+            class="btn btn-info text-decoration-none"><u><b>Login here</b></u></a></h4>
+        <h4 class="text-center  mt-5 mb-0"><b>Back to Home ?</b> <a href="{% url 'home'%}"
+            class="btn btn-info text-decoration-none"><u><b>Home</b></u></a></h4>
+    </form>
+
+    <!--style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');"-->
+    {% endblock %}
+</body>

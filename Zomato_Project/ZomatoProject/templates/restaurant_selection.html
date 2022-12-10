@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Select restaurant
+{% endblock %}
+
+{% block content %}
+<br>
+<h2>Hello <b>{{user_name}} </b></h2><br>
+<nav class="navbar navbar-light bg-light">
+    <form class="form-inline" method="GET" action="{% url 'search' %}">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search for restaurant" aria-label="Search" name="q">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </nav>
+ <center> <h1>Popular restaurants</h1></center>
+
+<table class="table">
+  <tr>
+    <th>Restaurant name</th>
+    <th>Address</th>
+  </tr>
+
+ 
+  {% for restaurant  in restaurant_objects %}
+  <tr>
+  
+    <td><a  class="btn btn-outline-secondary" href="{% url 'selected_restaurant' restaurant.restaurant_id %}">{{restaurant.restaurant_name}}</a></td>
+    <td>{{restaurant.restaurant_adress}}</td>
+  
+</tr>
+{% endfor %}
+</table>
+
+
+
+
+
+{% endblock %}

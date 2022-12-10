@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="vh-200" style="background-color: #ffff;">
+    <br>
+    <a class="btn btn-success" href="{% url 'logindetails' %}" style="left:2px;">Back to Restaurants</a>
+    <a class="btn btn-success" href="{% url 'my_orders' %}" style="float: right;">My Orders</a>
+    <div class="container-fluid">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col">
+          
+          <p><span class="h2"> Cart </span>
+            {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><h3>{{ message }}</h3></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+          
+  
+          <div class="card mb-4">
+            <div class="card-body p-4">
+                {% for order in cart_objects %}
+  
+              <div class="row align-items-center">
+                <div class="col-md-2">
+                  <img src="{% static 'images/{{order.dishes.dish_image}}' %}" 
+                    class="img-fluid" alt="Generic placeholder image">
+                </div>
+                <div class="col-md-2 d-flex justify-content-center">
+                
+                  <div>
+                  <h3> <b class="small text-muted mb-4 pb-2">Dish name</b></h3> 
+                <h3>   <p class="lead fw-normal mb-0">{{order.dishes.dish_name}}</p></h3> 
+                  </div>
+                </div>
+              
+                <div class="col-md-2 d-flex justify-content-center">
+                  <div>
+                <h3>   <b class="small text-muted mb-4 pb-2">Quantity</b></h3> 
+            
+                    <a  class="btn" href="{% url 'quantity_decrement' order.dishes.dish_id %}">-</a>
+                  <input type="text" value="{{order.quantity}}" min="0" style="width: 50px;">
+                    <a class="btn" href="{% url 'quantity_increment' order.dishes.dish_id %}">+</a>
+                 
+                  </div>
+                </div>
+                <div class="col-md-2 d-flex justify-content-center">
+                  <div>
+                <h3>   <b class="small text-muted mb-4 pb-2">Delete item</b></h3> 
+            
+                    <a class="btn btn-success"  href="{% url 'delete_item' order.cart_id %}">Delete</a>
+                
+                 
+                  </div>
+                </div>
+                
+                <div class="col-md-2 d-flex justify-content-center">
+                  <div>
+                <h3>   <b class="small text-muted mb-4 pb-2">Price</b></h3> 
+            <h3>   <p class="lead fw-normal mb-0">{{order.dishes.dish_price}}</p></h3> 
+                  </div>
+                </div>
+                <div class="col-md-2 d-flex justify-content-center">
+                  <div>
+                 <h3>  <b class="small text-muted mb-4 pb-2">Total</b></h3> 
+                    <p class="lead fw-normal mb-0">{{order.total_price}}</p>
+                  </div>
+                </div>
+              </div><br><br>
+              {% endfor %}
+  
+            </div>
+          </div>
+  
+          <div class="card mb-5">
+            <div class="card-body p-4">
+  
+              <div class="float-end">
+                <p class="mb-0 me-5 d-flex align-items-center">
+                    
+                  <span class="small text-muted me-2">Order total:</span> <span
+                    class="lead fw-normal">{{order.total_price}}</span>
+                </p>
+              </div>
+  
+            </div>
+          </div>
+  
+          <div class="d-flex justify-content-end">
+           
+            <a type="button" class="btn btn-primary btn-lg" href="{% url 'place_order' %}">Place Order</a>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

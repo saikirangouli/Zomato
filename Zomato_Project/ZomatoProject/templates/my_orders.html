@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br><br>
+
+<body class="col-lg-12">  
+
+{% if not my_orders  %}
+{% if not searching_order_object %}
+<h3>Sorry !! there was no previous orders </h3>
+{% endif %}
+{% endif %}
+{% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><h3>{{ message }}</h3></li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+  <nav class="navbar navbar-light bg-light" style="float: right;">
+    <form class="form-inline" method="GET" action="{% url 'search_for_order' %}">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search for order with order id" aria-label="Search" name="q">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </nav>
+   <form method='POST' action="{% url 'date_wise_orders' %}">
+    {% csrf_token %}
+    
+    <h3>Select  dates to filter the Orders</h3><br>
+    <label for="birthday">Start date :</label>
+    <input type="date" id="birthday" name="start_date">
+     <br><br>
+    <label for="birthday">End date :</label>
+    <input type="date" id="birthday" name="end_date">
+    <br><br>
+    <input type="submit" class="btn btn-success" value="Check order in these dates">
+    
+  </form>
+
+  {% if searching_order_object %}
+  
+<section  style="background-color: #eee; width: 1050px;">
+  <div class="container-fluid">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-8 col-xl-6">
+        <div class="card border-top border-bottom border-3" style="border-color: #f37a27 !important;">
+          <div class="card-body p-5">
+
+            <p class="lead fw-bold mb-5" style="color: #f37a27;">Order id : {{searching_order_object.order_id}}</p>
+
+            <div class="row">
+              <div class="col mb-3">
+                <p class="small text-muted mb-1">Date</p>
+                <p>{{searching_order_object.order_date}}</p>
+              </div>
+              <div class="col mb-3">
+                <p class="small text-muted mb-1">Order No.</p>
+                <p>{{searching_order_object.order_id}}</p>
+              </div>
+            </div>
+            
+            <div class="mx-n5 px-5 py-4" style="background-color: #f2f2f2;">
+              <div class="row">
+                <div class="col-md-8 col-lg-9">
+                  <p>{{searching_order_object.cart.all.dishes.dish_name}}</p>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                  <p>{{searching_order_object.total_price}}</p>
+                </div>
+              </div>
+            
+            </div>
+            
+
+            <div class="row my-4">
+              
+              <div class="col-md-4 offset-md-8 col-lg-12 offset-lg-9">
+              <p  style="color: #f37a27;">Total price : {{searching_order_object.total_price}}</p>
+              </div>
+            </div>
+
+           
+
+              </div>
+            </div>
+
+        
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  {% endif %}
+ 
+  
+ 
+
+
+{% for order in my_orders %}
+
+
+
+
+<section  style="background-color: #eee; width: 1050px;">
+    <div class="container-fluid">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-lg-8 col-xl-6">
+          <div class="card border-top border-bottom border-3" style="border-color: #f37a27 !important;">
+            <div class="card-body p-5">
+  
+              <p class="lead fw-bold mb-5" style="color: #f37a27;">Order id : {{order.order_id}}</p>
+  
+              <div class="row">
+                <div class="col mb-3">
+                  <p class="small text-muted mb-1">Date</p>
+                  <p>{{order.order_date}}</p>
+                </div>
+                <div class="col mb-3">
+                  <p class="small text-muted mb-1">Order No.</p>
+                  <p>{{order.order_id}}</p>
+                </div>
+              </div>
+              {% for d in order.cart.all %}
+              <div class="mx-n5 px-5 py-4" style="background-color: #f2f2f2;">
+                <div class="row">
+                  <div class="col-md-8 col-lg-9">
+                    <p>{{d.dishes.dish_name}}</p>
+                  </div>
+                  <div class="col-md-4 col-lg-3">
+                    <p>{{d.total_price}}</p>
+                  </div>
+                </div>
+              
+              </div>
+              {% endfor %}
+  
+              <div class="row my-4">
+                
+                <div class="col-md-4 offset-md-8 col-lg-12 offset-lg-9">
+                <p  style="color: #f37a27;">Total price : {{order.total_price}}</p>
+                </div>
+              </div>
+  
+             
+  
+                </div>
+              </div>
+  
+          
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <br><br>
+  {% endfor %}
+  
+
+
+</body>
+
+{% endblock %}

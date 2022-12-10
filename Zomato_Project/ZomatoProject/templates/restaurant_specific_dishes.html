@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% for dish in dish_objects %}
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="static/images/Item_images/{{dish.dish_image}}" alt="Card image cap">
+    <br>
+    <div class="card-body">
+        <span><b>{{dish.dish_name}}</b></span>      <span><b>{{dish.dish_price}}</b></span><br>
+        <a class="btn btn-success" href="{% url 'delete_dish' dish.dish_id %}">Delete</a>
+      
+    </div>
+  </div>
+  {% endfor %}
+{% endblock %}

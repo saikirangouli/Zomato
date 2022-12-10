@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Add Restaurant details
+{% endblock %}
+
+{% block content %}
+<h1>Hello {{user_name}}</h1>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><h3>{{ message }}</h3></li>
+    {% endfor %}
+</ul>
+{% endif %}
+<div><h1 style="position:relative;top:60px; color: #eee;
+left:36px;
+top: 200px;
+width: 35%;font-Size: 279px;">Register Your restaurant <br> <h1 style="position:relative;left:150px;top:220px;color: #eee;">with Zomato<h1></h1>
+<form method ="POST" action="{% url 'restaurantdetails' %}">
+    {% csrf_token %}
+<input type = "text" placeholder="Ener Your restaurant name" name="restaurant_name">
+<textarea rows="4" cols="50" name="restaurant_address" placeholder="Enter Your restaurant adress  here..."></textarea>
+
+    <label >Restaurant owner:</label>
+
+    <select name="restaurant_owner" id="restaurant_owner">
+      <option value="{{user_name}}" selected>{{user_name}}</option>
+    </select>
+    <input type ="submit" value="Add Details">
+</form>
+
+
+<div>
+
+<image src="{% static 'images/mx-onboarding-hero87f77501659a5656cad54d98e72bf0d81627911821.webp'%}" width="100%" style="height:100%%;"/>
+
+
+
+
+ 
+   
+    
+{% endblock %}

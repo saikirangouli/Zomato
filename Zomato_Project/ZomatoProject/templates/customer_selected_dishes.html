@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% static 'images' as base_url %}
+{% block content %}
+<br>
+<h3>Available dishes in <b>{{restaurant_name}} </b> are </h3><br>
+{% for dish in dishes_available %}
+<div class="card" style="width: 25rem;margin: 30px;">
+    <img class="card-img-top" src="/static/images/{{dish.dish_image}}" alt="Card image cap">
+    <div class="card-body">
+        <span><b>{{dish.dish_name}}</b></span>    <br><br>  <span> Price : Rs <b>{{dish.dish_price}}</b>/-</span><br><br>
+    
+        <a class="btn btn-success" href="{% url 'add_to_cart' dish.dish_id  %}">Add to cart</a>
+
+      
+    </div>
+  </div>
+  {% endfor %}
+{% endblock %}

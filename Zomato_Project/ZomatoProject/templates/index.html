@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" type="text/css">
+</head>
+{% block content %}
+
+
+<div id="main-div">
+<nav class="navbar navbar-expand-lg navbar-light bg-light ml-auto ">
+    <img src="{% static 'images/zomato.png'%}" />
+  
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'sign_up_page'%}">Signup</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="{% url 'login_page' %}">Login</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div>
+    <style>
+        
+    </style>
+
+  {% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Add Dish
+{% endblock %}
+
+{% block content %}
+<h1>Hello {{user_name}} </h1>
+{% if messages %}
+	{% for message in messages %} 
+	{% if message.tags %}
+		   <div class="{{message.tags}}-msg" style="  text-align: center;">		  {% endif %}
+			 
+   
+	   <i class="fa fa-times-circle"></i>
+			   {{message}}
+			 </div>
+			 {% endfor %} 
+		   {% endif %}	
+<center>
+    <h2><b>Restaurant Details :- </b></h2><br><br>
+<form method = 'POST' action ="{% url 'add_dish'%}">
+    {% csrf_token %}
+   <h3>Restaurant name : <b>{{restaurant_object.restaurant_name}}</b></h3>
+    <h3>Restaurant address : <b>{{restaurant_object.restaurant_adress}}</b></h3>
+    <h3>Restaurant owned by <b>{{restaurant_object.restaurant_owner_name.user_name}}</b></h3>
+<input type="text" placeholder="Enter Dish Name" name="dish_name" ><br><br>
+    <input type = "number" placeholder="Enter dish price" name="dish_price" ><br><br>
+    <input type="file" name="dish_image" placeholder="Upload Your dish image" ><br><br>
+    <label >Restaurant Name:</label><br>
+
+
+    <input type="text" name="restaurant_name" value="{{restaurant_object.restaurant_name}}" readonly><br><br>
+
+ <input type="submit" value="Add Dish" />
+</form>
+<a class="btn btn-success" href="{% url 'show_dishes' restaurant_object.restaurant_id %}" >Show My Dishes</a>
+</center>
+
+{% endblock %}
